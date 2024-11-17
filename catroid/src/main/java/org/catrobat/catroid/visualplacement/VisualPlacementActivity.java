@@ -45,6 +45,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -75,6 +76,7 @@ import static org.catrobat.catroid.content.Look.ROTATION_STYLE_ALL_AROUND;
 import static org.catrobat.catroid.content.Look.ROTATION_STYLE_LEFT_RIGHT_ONLY;
 import static org.catrobat.catroid.content.Look.ROTATION_STYLE_NONE;
 import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_BRICK_HASH;
+import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_ROTATION;
 import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_TEXT;
 import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_TEXT_ALIGNMENT;
 import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_TEXT_COLOR;
@@ -100,10 +102,13 @@ public class VisualPlacementActivity extends BaseCastActivity implements View.On
 	public static final String Y_COORDINATE_BUNDLE_ARGUMENT = "yCoordinate";
 	public static final String CHANGED_COORDINATES = "changedCoordinates";
 
+	public static final String ROTATION_ANGLE_BUNDLE_ARGUMENT = "rotationAngle";
+
 	private ProjectManager projectManager;
 	private FrameLayout frameLayout;
 	private BitmapFactory.Options bitmapOptions;
 	private ImageView imageView;
+	private float rotationAngle = 0.0f;
 
 	private float xCoord;
 	private float yCoord;
@@ -163,6 +168,8 @@ public class VisualPlacementActivity extends BaseCastActivity implements View.On
 		Bundle extras = getIntent().getExtras();
 		translateX = extras.getInt(EXTRA_X_TRANSFORM);
 		translateY = extras.getInt(EXTRA_Y_TRANSFORM);
+		rotationAngle = extras.getFloat(EXTRA_ROTATION);
+
 		if (extras.containsKey(EXTRA_TEXT)) {
 			isText = true;
 			text = extras.getString(EXTRA_TEXT);
@@ -215,9 +222,20 @@ public class VisualPlacementActivity extends BaseCastActivity implements View.On
 
 		bitmapOptions = new BitmapFactory.Options();
 		bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		Button rotateLeftButton = findViewById(R.id.rotate_left_button);
+		Button rotateRightButton = findViewById(R.id.rotate_right_button);
 
 		setBackground();
 		showMovableImageView();
+
+		rotateLeftButton.setOnClickListener(v -> {
+			rotateImage(-90);
+		});
+
+		rotateRightButton.setOnClickListener(v -> {
+			rotateImage(90);
+		});
+
 
 		toolbar.bringToFront();
 		frameLayout.setOnTouchListener(this);
@@ -301,6 +319,7 @@ public class VisualPlacementActivity extends BaseCastActivity implements View.On
 		} else {
 			imageView.setTranslationX(translateX);
 			imageView.setTranslationY(-translateY);
+			imageView.setRotation(rotationAngle);
 		}
 		xCoord = translateX * layoutWidthRatio;
 		yCoord = translateY * layoutHeightRatio;
@@ -313,6 +332,11 @@ public class VisualPlacementActivity extends BaseCastActivity implements View.On
 			imageView.setScaleY(scaleY);
 		}
 		frameLayout.addView(imageView);
+	}
+
+	private void rotateImage(float degrees) {
+		rotationAngle += degrees;
+		imageView.setRotation(rotationAngle);
 	}
 
 	private Bitmap convertTextToBitmap() {
@@ -404,6 +428,7 @@ public class VisualPlacementActivity extends BaseCastActivity implements View.On
 		extras.putInt(X_COORDINATE_BUNDLE_ARGUMENT, xCoordinate);
 		extras.putInt(Y_COORDINATE_BUNDLE_ARGUMENT, yCoordinate);
 		extras.putBoolean(CHANGED_COORDINATES, translateX != xCoordinate || translateY != yCoordinate);
+		extras.putFloat(ROTATION_ANGLE_BUNDLE_ARGUMENT, rotationAngle);
 
 		returnIntent.putExtras(extras);
 		setResult(Activity.RESULT_OK, returnIntent);

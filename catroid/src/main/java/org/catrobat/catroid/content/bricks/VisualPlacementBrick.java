@@ -43,6 +43,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_BRICK_HASH;
+import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_ROTATION;
 import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_X_TRANSFORM;
 import static org.catrobat.catroid.ui.SpriteActivity.EXTRA_Y_TRANSFORM;
 import static org.catrobat.catroid.ui.SpriteActivity.REQUEST_CODE_VISUAL_PLACEMENT;
@@ -116,6 +117,7 @@ public abstract class VisualPlacementBrick extends FormulaBrick {
 		}
 		intent.putExtra(EXTRA_X_TRANSFORM, xValue);
 		intent.putExtra(EXTRA_Y_TRANSFORM, yValue);
+//		intent.putExtra(EXTRA_ROTATION, rotationAngle);
 
 		return intent;
 	}

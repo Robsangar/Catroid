@@ -34,6 +34,7 @@ public final class BrickValues {
 	//constants Motions
 	public static final int X_POSITION = 100;
 	public static final int Y_POSITION = 200;
+	public static final float ROTATION = 0.0f;
 	public static final int CHANGE_X_BY = 10;
 	public static final int CHANGE_Y_BY = 10;
 	public static final double MOVE_STEPS = 10;

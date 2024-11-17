@@ -144,6 +144,9 @@ public class SpriteActivity extends BaseActivity {
 
 	public static final String EXTRA_X_TRANSFORM = "X";
 	public static final String EXTRA_Y_TRANSFORM = "Y";
+
+	public static final String EXTRA_ROTATION = "ROTATION";
+
 	public static final String EXTRA_TEXT = "TEXT";
 	public static final String EXTRA_TEXT_COLOR = "TEXT_COLOR";
 	public static final String EXTRA_TEXT_SIZE = "TEXT_SIZE";

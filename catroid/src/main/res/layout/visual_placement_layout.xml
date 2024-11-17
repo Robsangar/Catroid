@@ -41,7 +41,22 @@
             android:layout_height="wrap_content"
             android:background="#60002B3B"
             app:titleTextAppearance="@color/solid_white" />
-        
+
+        <Button
+            android:id="@+id/rotate_left_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:text="Rotate Left" />
+
+        <!-- Add Rotate Right Button -->
+        <Button
+            android:id="@+id/rotate_right_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:text="Rotate Right" />
+
     </FrameLayout>
 
 </LinearLayout>
